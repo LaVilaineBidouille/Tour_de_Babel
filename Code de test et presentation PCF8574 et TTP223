@@ -1,3 +1,119 @@
 
 
+/*
+   ______               _                  _///_ _           _                   _
+  /   _  \             (_)                |  ___| |         | |                 (_)
+  |  [_|  |__  ___  ___ _  ___  _ __      | |__ | | ___  ___| |_ _ __ ___  _ __  _  ___  _   _  ___
+  |   ___/ _ \| __|| __| |/ _ \| '_ \_____|  __|| |/ _ \/  _|  _| '__/   \| '_ \| |/   \| | | |/ _ \
+  |  |  | ( ) |__ ||__ | | ( ) | | | |____| |__ | |  __/| (_| |_| | | (_) | | | | | (_) | |_| |  __/
+  \__|   \__,_|___||___|_|\___/|_| [_|    \____/|_|\___|\____\__\_|  \___/|_| |_|_|\__  |\__,_|\___|
+                                                                                      | |
+                                                                                      \_|
+  Fichier :       prg5-InterruptionDepuisPCF8574-AvecLibrairieWire.ino
+  
+  Description :   Programme permettant de faire clignoter une led (blink) toutes les secondes,
+                  sur la sortie P0 d'un PCF 8574 (en utilisant la librairie Wire uniquement)
+                  
+  Auteur :        Jérôme TOMSKI (https://passionelectronique.fr/)
+  Créé le :       27.06.2022
 
+*/
+
+#include <Wire.h>
+
+#define adresseDeLaPucePCF8574 0x20                   // Adresse I2C du module PCF8574 (défini par le niveau de ses broches d'adresse A0, A1, et A2)
+#define brocheArduinoDeDeclenchementInterruption  2   // La broche D2 permettra au PCF8574 "d'interrompre" l'arduino, à tout moment
+                                                                // Nota 1 : l'interruption est active à l'état bas
+                                                                // Nota 2 : une résistance de pull-up est nécessaire ici (on activera celle interne à l'arduino, sur la pin D2)
+
+volatile bool interruptionDeclenchee = false;         // Variable qui mémorisera le fait qu'une interruption s'est déclenché
+                                                                // Remarque : celle-ci est de type volatile, pour être disponible DANS et HORS de la routine d'interruption
+
+// ========================
+// Initialisation programme
+// ========================
+void setup() {
+
+  // Initialisation de la liaison série (Arduino Nano -> PC)
+  Serial.begin(9600);
+  Serial.println(F("==============================================================="));
+  Serial.println(F("Exemple 5 (tuto PCF8574) : interruption générée par un PCF8574 "));
+  Serial.println(F("                           (utilisation de librairie Wire, ici)"));
+  Serial.println(F("==============================================================="));
+  Serial.println("");
+
+  // Initialisation du contrôleur i2c Arduino
+  Wire.begin();
+
+  // Vérification de la présence du PCF 8574 (si il est bien connecté, il renverra la valeur "0" à l'appel de "endTransmission") 
+  Wire.beginTransmission(adresseDeLaPucePCF8574);
+  if(Wire.endTransmission() != 0) {
+    Serial.print(F("Le PCF8574 ne répond pas à l'adresse 0x"));
+    Serial.println(adresseDeLaPucePCF8574, HEX);
+    Serial.println(F("Arrêt du programme."));
+    while(1);
+  }
+
+  // On met toutes les broches P0 à P7 à l'état haut, pour que celles-ci puissent fonctionner en entrée
+  Wire.beginTransmission(adresseDeLaPucePCF8574);
+  Wire.write(0b11111111);     // Chaque "1" représente respectivement P7, P6, P5, P4, P3, P2, P1, et P0
+  Wire.endTransmission();
+  delay(500);                 // Petite pause avant d'activer les interruptions
+
+  // Activation de la pull-up, sur l'entrée d'interruption arduino choisie
+  pinMode(brocheArduinoDeDeclenchementInterruption, INPUT_PULLUP);
+
+  // Définition de cette pin comme "entrée d'interruption programme" (activation à chaque "FALLING", donc sur front descendant du signal)
+  attachInterrupt(digitalPinToInterrupt(brocheArduinoDeDeclenchementInterruption), ROUTINE_D_INTERRUPTION, FALLING);
+
+}
+
+// ======================
+// Routine d'interruption
+// ======================
+void ROUTINE_D_INTERRUPTION() {
+  interruptionDeclenchee = true;
+  Serial.println("Routine d'interruption exécutée");
+
+  // À noter que je n'ai pas mis ici de code "anti-rebond", pour ne pas alourdir le programme
+}
+
+// =================
+// Boucle principale
+// =================
+void loop() {
+
+  // On ne fait rien ici, sauf lorsqu'une interruption a été déclenchée (ce qu'on sait quand la variable booléenne ci-dessus est à VRAIE)
+  if(interruptionDeclenchee) {
+    Wire.requestFrom(adresseDeLaPucePCF8574, 1);    // On interroge le PCF8574, en lui demandant de nous retourner 1 octet (qui contiendra l'état des broches P0 à P7)
+
+    if(Wire.available()) {
+      byte reponseDuPCF8574 = Wire.read();
+      Serial.print(F("Réponse du PCF8574 = "));
+      Serial.print(reponseDuPCF8574, BIN);
+  //  printf("bin = %08x", reponseDuPCF8574);   voir formatage
+      Serial.print('\t'); 
+      Serial.print(reponseDuPCF8574, HEX);
+      Serial.print('\t'); 
+      Serial.println(reponseDuPCF8574);
+
+
+      // On affiche quelle broche est à l'origine de l'interruption (remarque : ne prend pas en compte les appuis simultanés)
+      if(reponseDuPCF8574 == 0b01111111)  Serial.println(F("  ==> Interruption depuis la broche P7"));
+      if(reponseDuPCF8574 == 0b10111111)  Serial.println(F("  ==> Interruption depuis la broche P6"));
+      if(reponseDuPCF8574 == 0b11011111)  Serial.println(F("  ==> Interruption depuis la broche P5"));
+      if(reponseDuPCF8574 == 0b11101111)  Serial.println(F("  ==> Interruption depuis la broche P4"));
+      if(reponseDuPCF8574 == 0b11110111)  Serial.println(F("  ==> Interruption depuis la broche P3"));
+      if(reponseDuPCF8574 == 0b11111011)  Serial.println(F("  ==> Interruption depuis la broche P2"));
+      if(reponseDuPCF8574 == 0b11111101)  Serial.println(F("  ==> Interruption depuis la broche P1"));
+      if(reponseDuPCF8574 == 0b11111110)  Serial.println(F("  ==> Interruption depuis la broche P0"));
+      if(reponseDuPCF8574 == 0b11111111)  Serial.println(F("  ==> Toutes les entrées sont 'relâchées'"));
+
+      Serial.println("");
+    }
+
+    // Et on reset l'indicateur de détection d'interruption, pour capter la prochaine
+    interruptionDeclenchee = false;
+  }
+
+}
