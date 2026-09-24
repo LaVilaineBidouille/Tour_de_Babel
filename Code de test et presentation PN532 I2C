@@ -1,1 +1,110 @@
 
+#include <Wire.h>
+#include <Adafruit_PN532.h>
+
+Adafruit_PN532 nfc(-1, -1);  
+
+// Clé par défaut Mifare Classic (souvent utilisée en usine)
+uint8_t keyuniversal[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+uint8_t repertoire  = 0;
+
+void setup(void) {
+  Serial.begin(115200);
+  while (!Serial) delay(10);
+
+  Serial.println("Initialisation du PN532...");
+  nfc.begin();
+
+  uint32_t versiondata = nfc.getFirmwareVersion();
+  if (!versiondata) {
+    Serial.println("Erreur : PN532 non détecté. Vérifiez le câblage !");
+    while (1);
+  }
+
+  nfc.SAMConfig();
+  Serial.println("En attente d'une carte RFID/NFC...");
+}
+
+void loop(void) {
+  uint8_t success;
+  uint8_t uid[7] = {0};
+  uint8_t uidLength;
+
+  success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength, 1000);
+
+  if (success) {
+    Serial.println("---------------------------------");
+    Serial.print("UID (");
+    Serial.print(uidLength, DEC);
+    Serial.print(" octets) : ");
+    for (uint8_t i = 0; i < uidLength; i++) {
+      if (uid[i] < 0x10) Serial.print("0");
+      Serial.print(uid[i], HEX);
+      Serial.print(" ");
+    }
+    Serial.println();
+
+    if (uidLength == 4) {
+      // ---- Mifare Classic ----
+      Serial.println("Type : Mifare Classic");
+      readMifareClassic(uid, uidLength);
+
+    } else if (uidLength == 7) {
+      // ---- Mifare Ultralight ----
+      Serial.println("Type : Mifare Ultralight");
+      readMifareUltralight(uid, uidLength);
+    }
+
+    Serial.println("---------------------------------");
+    delay(5000);
+  }
+}
+
+// Lecture d'un bloc Mifare Classic (ici bloc 4, secteur 1)
+void readMifareClassic(uint8_t *uid, uint8_t uidLength) {
+  uint8_t blockNumber = 4;
+  uint8_t data[16];
+
+  uint8_t authenticated = nfc.mifareclassic_AuthenticateBlock(
+    uid, uidLength, blockNumber, 0, keyuniversal
+  );
+
+  if (authenticated) {
+    if (nfc.mifareclassic_ReadDataBlock(blockNumber, data)) {
+      Serial.print("Bloc "); Serial.print(blockNumber); Serial.println(" :");
+      for (uint8_t i = 0; i < 16; i++) {
+        if (data[i] < 0x10) Serial.print("0");
+        Serial.print(data[i], HEX);
+        Serial.print(" ");
+      }
+      repertoire=data[1];
+      Serial.print("Répertoire : ");
+      Serial.print(repertoire,HEX);
+      Serial.print('\t');
+      Serial.println(repertoire,DEC);
+    } else {
+      Serial.println("Échec de la lecture du bloc.");
+    }
+  } else {
+    Serial.println("Échec de l'authentification (mauvaise clé ?).");
+  }
+}
+
+// Lecture d'une page Ultralight (ici pages 4 à 7, données utilisateur)
+void readMifareUltralight(uint8_t *uid, uint8_t uidLength) {
+  uint8_t data[32];
+
+  for (uint8_t page = 4; page <= 7; page++) {
+    if (nfc.mifareultralight_ReadPage(page, data)) {
+      Serial.print("Page "); Serial.print(page); Serial.print(" : ");
+      for (uint8_t i = 0; i < 4; i++) {
+        if (data[i] < 0x10) Serial.print("0");
+        Serial.print(data[i], HEX);
+        Serial.print(" ");
+      }
+      Serial.println();
+    } else {
+      Serial.println("Échec de la lecture de la page.");
+    }
+  }
+}
