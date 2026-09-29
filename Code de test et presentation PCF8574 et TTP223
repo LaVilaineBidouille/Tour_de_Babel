@@ -1,3 +1,8 @@
+// Le module TTP223 est utilisé en mode momentané avec un état à 0 lorsqu'il détecte être touché. (pont A relié)
+// https://www.atelierdelarobotique.fr/capteur-tactile-ttp223-et-arduino
+// Chaque TTP223 est relié à une des broches du module PCF8584 de P0 à P7
+// La broche INT du mode PCF8584 est reliée à la broche 2 (INT0) de l'arduino
+
 
 
 /*
