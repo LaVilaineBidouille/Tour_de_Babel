@@ -31,7 +31,7 @@ Mettre à jour la colonne Statut en modifiant ce fichier.
 | N° | Tâche | Responsable | Début | Fin | Statut | Notes |
 |---|---|---|---|---|---|---|
 | 3.1 | Structure du programme : repos, badge détecté, lecture, pause | Éric / Samuel | — | — | ✅ Terminé |  |
-| 3.2 | Associer l'identifiant du badge à un flux de langue (séquence de sons) | Éric / Samuel | — | 14/10 | 🔄 En cours | Presque terminé. Dépend du choix des langues |
+| 3.2 | Associer l'identifiant du badge à un flux de langue (séquence de sons) | Éric / Samuel | — | 14/10 |  |plus necessaire, language selectionner pas les boutons sur la tour
 | 3.3 | Lecture continue : fonctionner des heures sans défaut | Éric / Samuel | 08/10 | 21/10 | Non commencé | Le briefing insiste sur la fiabilité |
 | 3.4 | LED clignotantes (facultatif) | À attribuer | 15/10 | 28/10 | Non commencé | Seulement si décidé en 1.5 |
 
