@@ -11,7 +11,7 @@ Mettre à jour la colonne Statut en modifiant ce fichier.
 | N° | Tâche | Responsable | Début | Fin | Statut | Notes |
 |---|---|---|---|---|---|---|
 | 1.1 | Réunion de lancement : périmètre, rôles, point hebdomadaire | Éric | — | — | ✅ Terminé | Projet démarré |
-| 1.2 | Confirmer les langues des sons (FR, EN, ES, DE, gallo...) | À attribuer | 01/10 | 07/10 | 🔄 En cours | « À confirmer » dans le briefing. Statut à vérifier |
+| 1.2 | Confirmer les langues des sons (FR (4), EN(2), ES(1), gallo (3)...) | À attribuer | 01/10 | 07/10 | 🔄 En cours | « À confirmer » dans le briefing. Statut à vérifier |
 | 1.3 | Décider : écriture du profil sur la puce RFID à l'accueil dans la V1 ? | Éric | 01/10 | 07/10 | 🔄 En cours | Non défini dans le briefing. Suggestion : hors V1. Statut à vérifier |
 | 1.4 | Convenir avec le partenaire du format et de la date de livraison des sons | Éric | 01/10 | 07/10 | 🔄 En cours | Statut à vérifier |
 | 1.5 | Décider : décoration LED dans la V1 ou non | À attribuer | 01/10 | 07/10 | 🔄 En cours | « Si nécessaire » dans le briefing. Statut à vérifier |
