@@ -7,3 +7,5 @@ PN532          :   https://fr.hwlibre.com/tout-ce-qu%27il-faut-savoir-sur-le-mod
 Arduino Nano   :   https://mischianti.org/arduino-nano-high-resolution-pinout-datasheet-and-specs/
 
 ADS1115        :   https://passionelectronique.fr/tutorial-ads1115/
+
+DFPlayer       :   https://arduino-france.site/dfplayer-mini/
