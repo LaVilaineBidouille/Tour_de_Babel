@@ -21,10 +21,10 @@ Mettre à jour la colonne Statut en modifiant ce fichier.
 | N° | Tâche | Responsable | Début | Fin | Statut | Notes |
 |---|---|---|---|---|---|---|
 | 2.1 | Choisir et commander les composants (Arduino, DFPlayer, lecteur RFID + badges, capteurs, haut-parleur, alimentation) | Éric / Samuel | — | 07/10 | 🔄 En cours | Matériel en grande partie reçu. Lister ce qui manque |
-| 2.2 | RFID : lire l'identifiant du badge de façon fiable | Éric / Samuel | — | — | ✅ Terminé | D'après l'avancement du logiciel. Statut à vérifier |
-| 2.3 | Audio : lire les fichiers de la carte SD avec le DFPlayer | Éric / Samuel | — | — | ✅ Terminé | Statut à vérifier |
+| 2.2 | RFID : lire l'identifiant du badge de façon fiable | Éric / Samuel | — | — | ✅ Terminé | D'après l'avancement du logiciel.Complet |
+| 2.3 | Audio : lire les fichiers de la carte SD avec le DFPlayer | Éric / Samuel | — | — | ✅ Terminé | en progres |
 | 2.4 | Capteurs du haut de la tour : choix de la langue et lecture/pause | Éric / Samuel | — | — | ✅ Terminé | Statut à vérifier |
-| 2.5 | Assembler RFID, capteurs et audio sur une même plaque | Éric / Samuel | — | — | ✅ Terminé | Statut à vérifier |
+| 2.5 | Assembler RFID, capteurs et audio sur une même plaque | Éric / Samuel | — | — | ✅ Terminé | |
 
 ## 3. Logiciel
 
@@ -56,10 +56,10 @@ Mettre à jour la colonne Statut en modifiant ce fichier.
 
 | N° | Tâche | Responsable | Début | Fin | Statut | Notes |
 |---|---|---|---|---|---|---|
-| 6.1 | Dessiner le schéma à partir de la plaque d'essai | Samuel | — | 07/10 | 🔄 En cours | Statut à vérifier |
-| 6.2 | DÉCISION : PCB dans la V1 ou plus tard ? | Éric / Samuel | 14/10 | 14/10 | Non commencé | Fabrication et livraison peuvent dépasser le 31 oct. Plan B : carte de prototype en V1, PCB en V2 |
+| 6.1 | Dessiner le schéma à partir de la plaque d'essai | Samuel | — | 07/10 | 🔄 terminer |  |
+| 6.2 | DÉCISION : PCB dans la V1 ou plus tard ? | Éric / Samuel | 14/10 | 14/10 | terminer | Fabrication et livraison peuvent dépasser le 31 oct. Plan B : carte de prototype en V1, PCB en V2 |
 | 6.3 | Router et commander la carte | Samuel | 08/10 | 17/10 | Non commencé | Seulement si le PCB reste dans la V1 |
-| 6.4 | Assembler et tester la carte | Samuel | 18/10 | 28/10 | Non commencé | Seulement si le PCB reste dans la V1 |
+| 6.4 | Assembler et tester la carte | Samuel | 18/10 | 28/10 | terminer | Seulement si le PCB reste dans la V1 |
 
 ## 7. Essais et livraison
 
