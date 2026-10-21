@@ -74,7 +74,7 @@ const unsigned long RFID_POLL_MS    = 200;
 const unsigned long RFID_LOCKOUT_MS = 3000;           // pause après une lecture (badge laissé sur le lecteur)
 
 // Audio
-const uint8_t VOLUME_DEFAULT = 20;    // 0..30
+const uint8_t VOLUME_DEFAULT = 10;    // 0..30
 const uint8_t VOLUME_STEP    = 2;
 const uint8_t VOLUME_MAX     = 30;
 
