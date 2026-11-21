@@ -31,7 +31,7 @@ Calendrier :
 Le calendrier du projet prévoit une première version d’ici fin octobre 2026.
 Le projet sera géré par Éric et soutenu par le groupe.
 
-Mise à jour du 20 novembre : 
+**Mise à jour du 20 novembre : **
  -  Difficulté rencontrée à cause d'interférences au niveau des capteurs TTP223. Tester blindage, isolation par vernis, collage à la plaque supérieure, ...
  -  Montage de la structure seul sans électronique demandé pour le mercredi 25 novembre 2026
 
