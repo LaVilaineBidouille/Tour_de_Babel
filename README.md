@@ -26,14 +26,14 @@ La tour pourra être décorée de LED clignotantes pour renforcer son impact vis
 Médias et contenu
 Le contenu du flux sonore sera fourni par le partenaire du projet (association St John's Potters), chargé d’enregistrer et de rassembler toutes les informations sous une forme permettant leur récupération.
 
-#Calendrier : 
+Calendrier : 
 
 Le calendrier du projet prévoit une première version d’ici fin octobre 2026.
 Le projet sera géré par Éric et soutenu par le groupe.
 
-#Mise à jour du 20 novembre : 
-##Difficulté rencontrée à cause d'interférences au niveau des capteurs TTP223. Tester blindage, isolation par vernis, collage à la plaque supérieure, ...
-##Montage de la structure seul sans électronique demandé pour le mercredi 25 novembre 2026
+# Mise à jour du 20 novembre : 
+## Difficulté rencontrée à cause d'interférences au niveau des capteurs TTP223. Tester blindage, isolation par vernis, collage à la plaque supérieure, ...
+## Montage de la structure seul sans électronique demandé pour le mercredi 25 novembre 2026
 
 
 
