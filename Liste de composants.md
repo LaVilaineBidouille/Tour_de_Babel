@@ -8,4 +8,4 @@ Arduino Nano   :   https://mischianti.org/arduino-nano-high-resolution-pinout-da
 
 ADS1115        :   https://passionelectronique.fr/tutorial-ads1115/
 
-DFPlayer       :   https://arduino-france.site/dfplayer-mini/
+DFPlayer       :   [https://arduino-france.site/dfplayer-mini/](https://idehack.com/dfplayer-mp3-tf-16p-et-arduino/)
