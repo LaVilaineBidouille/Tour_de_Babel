@@ -1,4 +1,4 @@
-PCF8584        :   https://passionelectronique.fr/tutorial-pcf8574/
+PCF8574        :   https://passionelectronique.fr/tutorial-pcf8574/
 
 TTP223         :   https://www.atelierdelarobotique.fr/capteur-tactile-ttp223-et-arduino
 
